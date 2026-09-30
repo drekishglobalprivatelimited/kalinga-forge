@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/src/generated/prisma
+
+# local file uploads (dev fallback when S3 not configured)
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# personal Claude Code settings
+/.claude/settings.local.json
