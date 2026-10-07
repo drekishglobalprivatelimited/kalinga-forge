@@ -74,7 +74,7 @@ src/
 ├── app/
 │   ├── (marketing)/      # /contact
 │   ├── (quote)/          # /quote, /quote/estimate, /quote/submitted
-│   ├── (shop)/           # /shop, /shop/[slug]  ← /shop/[slug] PAGE MISSING
+│   ├── (shop)/           # /shop (filters + sort), /shop/[slug] (product detail)
 │   ├── (customer)/       # /dashboard, /quotes, /orders
 │   ├── (auth)/           # /login, /register
 │   ├── (admin)/          # /admin/* (role-gated)
@@ -89,15 +89,18 @@ src/
 │           └── razorpay/webhook/
 ├── actions/              # Server actions (quote, payment, auth, contact)
 ├── components/
-│   ├── home/             # Landing page sections
+│   ├── home/             # OLD dark landing sections — no longer used by /, safe to delete
+│   ├── storefront/       # HeroCarousel, ProductRail, SectionHeading, fields.ts (light form styles)
 │   ├── layout/           # Header, Footer, Providers
-│   ├── quote/            # FileUploadZone, ConfiguratorPanel, PriceBreakdown
-│   ├── shop/             # AddToCartWrapper, CartDrawer
+│   ├── quote/            # FileUploadZone, ConfiguratorPanel, PriceBreakdown, QuoteSteps
+│   ├── shop/             # ProductCard, AddToCartWrapper, CartDrawer, SortSelect
 │   ├── lead/             # WhatsAppFloat, ExitIntentPopup
 │   ├── shared/           # ScrollReveal, GlassCard, AnimatedCounter, StructuredData
 │   └── ui/               # Radix/Shadcn primitives
 ├── lib/
-│   ├── auth.ts           # NextAuth v5 config
+│   ├── auth.ts           # NextAuth v5 config (Prisma adapter, providers)
+│   ├── auth.config.ts    # Edge-safe auth config shared with middleware — no Node-only imports
+│   ├── catalog.ts        # Storefront queries (products, product, categories); return empty on DB error
 │   ├── prisma.ts         # Singleton PrismaClient with PrismaPg adapter
 │   ├── s3.ts             # AWS S3 presigned URLs
 │   ├── pricing.ts        # Quote price calculator
@@ -110,7 +113,8 @@ src/
 │   ├── quoteStore.ts     # Zustand — file upload state + price config
 │   └── cartStore.ts      # Zustand (persisted) — cart items
 ├── constants/
-│   └── materials.ts      # Materials, layer heights, infill, finish, delivery options
+│   ├── materials.ts      # Materials, layer heights, infill, finish, delivery options
+│   └── categories.ts     # Storefront categories + header menu (mirrors poka-products.json)
 └── types/
     └── next-auth.d.ts    # Session type augmentation
 ```
@@ -123,7 +127,7 @@ src/
 
 | Feature | Notes |
 |---------|-------|
-| Homepage | All 7 sections, animations, JSON-LD SEO |
+| Homepage | Light retail storefront: hero carousel, category tiles, product rails, banners, FAQ JSON-LD |
 | Auth — register/login | Credentials provider. Google OAuth config exists, needs `AUTH_GOOGLE_ID` |
 | Quote flow — file upload | **S3 when configured; local filesystem fallback when AWS keys empty** |
 | Quote flow — STL analysis | Binary + ASCII STL full parse; STEP/OBJ/3MF size-based estimate |
@@ -133,9 +137,10 @@ src/
 | Admin dashboard | Overview stats, quote list (11 statuses), quote detail, order list, customer list, product list |
 | Admin — quote actions | Set final price, update status (audit log), create Razorpay payment link |
 | Payment — Razorpay | Create order, payment link, webhook handler, signature verification |
-| Shop page | Shows products from DB; **graceful "coming soon" if DB offline** |
-| Cart | Zustand persisted cart, add/remove/qty, cart drawer |
-| Contact form | Saves to DB, sends admin email |
+| Shop page | Category chips, sort (featured/new/price), search via `?q=`; empty state if DB offline |
+| Product page `/shop/[slug]` | Gallery, price, add to bag, description/material/shipping, related products, Product JSON-LD |
+| Cart | Zustand persisted cart, add/remove/qty, cart drawer mounted in Header (every storefront page) |
+| Contact form | Topic chips + form; saves to DB, sends admin email |
 | Email notifications | Quote submitted, admin alert, status update, order update |
 | Middleware | Route protection by auth status + role |
 
@@ -143,8 +148,6 @@ src/
 
 | Issue | Root Cause | Fix Needed |
 |-------|-----------|------------|
-| Shop — no products | DB empty (no seed run yet) | Run `npm run db:seed` after DB is up |
-| Shop — `/shop/[slug]` | Product detail page not created | **Create `src/app/(shop)/shop/[slug]/page.tsx`** |
 | Customer `/invoices` | Page stub, no content | Implement invoice list page |
 | Customer `/profile` | Page stub, no content | Implement profile edit page |
 | Admin `/admin/invoices` | Stub | Implement |
@@ -155,7 +158,11 @@ src/
 | Google OAuth | Keys empty | Fill `AUTH_GOOGLE_ID` + `AUTH_GOOGLE_SECRET` |
 | Email | `RESEND_API_KEY` empty | Quote submit silently swallows email errors (`.catch`) |
 | Checkout (shop cart) | Cart exists, no checkout page/flow | Create `/checkout` route and payment step |
-| Product variants | DB model exists, not used in shop | Implement variant selection on product detail page |
+| Product variants | DB model exists, not used in shop | Add variant picker to `/shop/[slug]` |
+| Customer & admin pages | Still old dark theme | Restyle to match storefront (`components/storefront/fields.ts`) |
+| Old demo categories | Earlier seed left "Home Decor", "Engineering Parts", "Gifts & Collectibles", "Functional Parts" + 8 imageless products | Delete from DB or deactivate |
+| Product photos | Some are slicer screenshots/WIP shots; some carry third-party watermarks (e.g. jtronics.de) | Replace before launch; confirm image/brand rights |
+| Catalogue export script | `Catalogue/Poka Prints/export_to_website.py` still writes "Poka Print Studio" into descriptions | Update script text to Kalinga Forge |
 | Blog | DB model exists, no routes | Create `/blog` |
 | Marketing pages | About, Services, Materials, FAQ linked in footer but 404 | Create or redirect |
 
@@ -164,7 +171,7 @@ src/
 | Limitation | When Fixed By |
 |-----------|--------------|
 | Files stored in `public/uploads/` (not S3) | Configuring `AWS_ACCESS_KEY_ID` + `AWS_SECRET_ACCESS_KEY` in `.env` |
-| No DB = shop shows "coming soon" | Running Postgres + `npm run db:push` + `npm run db:seed` |
+| No DB = storefront sections render empty | Running Postgres + `npm run db:push` + `npm run db:seed` |
 | Payments non-functional | Configuring `RAZORPAY_KEY_ID` + `RAZORPAY_KEY_SECRET` |
 | Emails silently fail | Configuring `RESEND_API_KEY` |
 
@@ -243,26 +250,22 @@ Browser → POST /api/upload (JSON: fileName, fileType, fileSize)
 ## Next Actions (Priority Order)
 
 1. **Set up Postgres** — `docker run` command above, then `npm run db:push && npm run db:seed`
-2. **Create `/shop/[slug]`** — product detail page with image gallery, variant picker, add-to-cart
+2. **Variant picker on `/shop/[slug]`** — colours from catalogue (`colors` field is dropped by seed today)
 3. **Create `/checkout`** — cart checkout flow: address → payment (Razorpay order from cart items)
 4. **Customer `/profile`** — name, phone, GST number, password change
 5. **Customer `/invoices`** — list invoices with PDF download
 6. **Wire PDF generation** — `@react-pdf/renderer` in Razorpay webhook after payment captured
 7. **Admin charts** — add Recharts to `/admin` overview (revenue over time, quotes by status)
 8. **Marketing pages** — `/about`, `/services`, `/faq`, `/blog` (DB model ready)
+11. **Restyle customer + admin areas** to the light storefront look
 9. **Configure credentials** — AWS S3, Razorpay, Resend, Google OAuth for production
 10. **Remove Stripe or wire it** — currently dead code
 
 ---
 
-## Known TypeScript Errors (Pre-existing, Not Introduced Here)
+## TypeScript
 
-`npx tsc --noEmit` shows ~20 errors, mostly:
-- `next-auth` session type mismatches
-- Radix UI component prop types
-- Unused variable warnings
-
-None block compilation/runtime. Fix before production.
+`npx tsc --noEmit` passes with 0 errors (as of 2026-10-08).
 
 ---
 
@@ -273,7 +276,10 @@ None block compilation/runtime. Fix before production.
 | Pricing logic | `src/lib/pricing.ts` |
 | STL parser | `src/lib/stl-analyzer.ts` |
 | Materials/constants | `src/constants/materials.ts` |
-| Auth config | `src/lib/auth.ts` |
+| Auth config | `src/lib/auth.ts` (+ edge-safe `src/lib/auth.config.ts`) |
+| Storefront queries | `src/lib/catalog.ts` |
+| Light form styles | `src/components/storefront/fields.ts` |
+| Header menu / categories | `src/constants/categories.ts` |
 | Email templates | `src/lib/email.ts` |
 | Quote submit action | `src/actions/quote.actions.ts:submitQuote` |
 | Payment action | `src/actions/payment.actions.ts` |
@@ -281,3 +287,37 @@ None block compilation/runtime. Fix before production.
 | Cart store | `src/store/cartStore.ts` |
 | Quote store | `src/store/quoteStore.ts` |
 | DB seed | `prisma/seed.ts` |
+
+---
+
+## Change Log
+
+### 2026-10-08 — Rebrand, Netlify fixes, storefront redesign
+
+**Rebrand: Poka Print Studio → Kalinga Forge** (committed `62c658d`)
+- Package renamed `kalinga_forge`; brand name, logo text, metadata, JSON-LD, emails and WhatsApp copy updated.
+- Domain/emails now `kalingaforge.in`; cart storage key `kalinga-forge-cart`; S3/DB defaults renamed.
+- `.env` business name and emails updated locally; `DATABASE_URL` and `AWS_S3_BUCKET` deliberately left pointing at existing resources.
+- Catalogue descriptions in `prisma/data/poka-products.json` (and local DB) changed from "Poka Print Studio" to "Kalinga Forge".
+
+**Netlify deploy fixes** (committed `08223ad`, `3596880`)
+- Razorpay and Resend clients created lazily (`getRazorpay()`, `getResend()`) so builds don't crash without API keys.
+- `postinstall: prisma generate` added; `netlify.toml` pins Node 22.
+- Auth split into edge-safe `src/lib/auth.config.ts` used by `middleware.ts`, so the Netlify Edge Function no longer bundles Prisma/bcrypt.
+- Netlify still needs: hosted Postgres `DATABASE_URL`, `AUTH_SECRET`, `NEXT_PUBLIC_APP_URL`, and the remaining keys from `.env`.
+
+**Storefront redesign — DailyObjects-style light theme** (committed `00d97c6`)
+- Global theme switched to light; tokens `ink`, `canvas`, `line`, `muted-ink`, `forge` added in `globals.css`.
+- New Header (announcement bar, category menus, search, account, bag) and light Footer.
+- New homepage, `/shop` (category chips + sort), new `/shop/[slug]` product page, `ProductCard`, light cart drawer.
+- `src/lib/catalog.ts` centralises storefront queries; homepage is `force-dynamic`.
+
+**Contact, quote and auth redesign** (uncommitted)
+- `/contact`: page header, contact details list, topic chips (prefixed onto the message), light form, success state.
+- `/quote`: light page header, `QuoteSteps` indicator, restyled `FileUploadZone`, trust grid and tips sidebar.
+- `/quote/estimate`: light layout; `ConfiguratorPanel` and `PriceBreakdown` restyled (square option tiles, ink selection state).
+- `/quote/submitted`: light confirmation; "Track quote" now links to `/quotes` (was the non-existent `/dashboard/quotes`).
+- `/login`, `/register`: split layout (product image panel + form), square ink buttons.
+- `(marketing)` and `(quote)` layouts no longer wrap pages in the dark background.
+- Shared `components/ui` primitives are unchanged (still dark for admin/customer); storefront pages pass light overrides from `components/storefront/fields.ts`.
+

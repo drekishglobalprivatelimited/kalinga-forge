@@ -129,7 +129,6 @@ export function FileUploadZone() {
     disabled: uploadState === "uploading" || uploadState === "analyzing",
   });
 
-  const isLoading = uploadState === "uploading" || uploadState === "analyzing";
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { onDrag, onDragStart, onDragEnd, onAnimationStart, ...rootProps } = getRootProps();
 
@@ -137,19 +136,17 @@ export function FileUploadZone() {
     <div className="w-full">
       <motion.div
         {...rootProps}
-        className={`relative border-2 border-dashed rounded-3xl p-12 text-center cursor-pointer transition-all duration-300 ${
+        className={`relative border border-dashed px-6 py-14 sm:py-20 text-center cursor-pointer transition-colors duration-300 ${
           isDragActive && !isDragReject
-            ? "border-blue-500 bg-blue-500/10 scale-[1.01]"
+            ? "border-ink bg-canvas"
             : isDragReject
-            ? "border-red-500 bg-red-500/10"
+            ? "border-red-600 bg-red-50"
             : uploadState === "done"
-            ? "border-green-500 bg-green-500/10"
+            ? "border-green-700 bg-green-50"
             : uploadState === "error"
-            ? "border-red-500/50 bg-red-500/5"
-            : "border-white/15 bg-white/3 hover:border-white/30 hover:bg-white/5"
+            ? "border-red-600/60 bg-red-50/60"
+            : "border-ink/30 bg-canvas/60 hover:border-ink hover:bg-canvas"
         }`}
-        whileHover={!isLoading ? { scale: 1.005 } : {}}
-        transition={{ type: "spring", stiffness: 400, damping: 30 }}
       >
         <input {...getInputProps()} />
 
@@ -161,28 +158,26 @@ export function FileUploadZone() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
             >
-              <div className="flex justify-center mb-6">
-                <motion.div
-                  animate={isDragActive ? { scale: 1.2 } : { scale: 1 }}
-                  className="w-20 h-20 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center"
-                >
-                  <Upload className="h-9 w-9 text-blue-400" />
-                </motion.div>
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-2">
-                {isDragActive ? "Drop your file here" : "Upload Your 3D File"}
+              <motion.div
+                animate={isDragActive ? { scale: 1.1 } : { scale: 1 }}
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center bg-white border border-line"
+              >
+                <Upload className="h-7 w-7 text-ink" strokeWidth={1.25} />
+              </motion.div>
+              <h3 className="text-xl font-semibold tracking-tight text-ink mb-2">
+                {isDragActive ? "Drop your file here" : "Upload your 3D file"}
               </h3>
-              <p className="text-white/50 mb-4">
-                Drag & drop or click to browse
+              <p className="text-sm text-muted-ink mb-6">
+                Drag &amp; drop, or <span className="text-ink underline underline-offset-4">browse</span>
               </p>
               <div className="flex flex-wrap gap-2 justify-center">
                 {["STL", "STEP", "OBJ", "3MF"].map((fmt) => (
-                  <span key={fmt} className="text-xs font-medium bg-white/5 border border-white/10 rounded-full px-3 py-1 text-white/60">
+                  <span key={fmt} className="text-[11px] font-medium tracking-wide bg-white border border-line px-3 py-1 text-ink/70">
                     .{fmt.toLowerCase()}
                   </span>
                 ))}
               </div>
-              <p className="text-xs text-white/30 mt-4">Maximum file size: 100 MB</p>
+              <p className="text-xs text-muted-ink mt-5">Maximum file size: 100 MB</p>
             </motion.div>
           )}
 
@@ -194,9 +189,9 @@ export function FileUploadZone() {
               exit={{ opacity: 0 }}
               className="flex flex-col items-center"
             >
-              <Loader2 className="h-12 w-12 text-blue-400 animate-spin mb-4" />
-              <p className="text-white font-medium">Uploading file...</p>
-              <p className="text-white/40 text-sm mt-1">Sending to secure storage</p>
+              <Loader2 className="h-10 w-10 text-ink animate-spin mb-4" strokeWidth={1.5} />
+              <p className="font-medium text-ink">Uploading file…</p>
+              <p className="text-sm text-muted-ink mt-1">Sending to secure storage</p>
             </motion.div>
           )}
 
@@ -211,24 +206,24 @@ export function FileUploadZone() {
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                className="w-12 h-12 border-4 border-violet-500/30 border-t-violet-500 rounded-full mb-4"
+                className="w-10 h-10 border-2 border-line border-t-ink rounded-full mb-4"
               />
-              <p className="text-white font-medium">Analyzing geometry...</p>
-              <p className="text-white/40 text-sm mt-1">Calculating dimensions & volume</p>
+              <p className="font-medium text-ink">Analysing geometry…</p>
+              <p className="text-sm text-muted-ink mt-1">Calculating dimensions &amp; volume</p>
             </motion.div>
           )}
 
           {uploadState === "done" && (
             <motion.div
               key="done"
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               className="flex flex-col items-center"
             >
-              <CheckCircle className="h-12 w-12 text-green-400 mb-4" />
-              <p className="text-white font-medium">File analyzed!</p>
-              <p className="text-white/40 text-sm mt-1">Redirecting to configurator...</p>
+              <CheckCircle className="h-10 w-10 text-green-700 mb-4" strokeWidth={1.5} />
+              <p className="font-medium text-ink">File analysed</p>
+              <p className="text-sm text-muted-ink mt-1">Taking you to the configurator…</p>
             </motion.div>
           )}
 
@@ -240,16 +235,16 @@ export function FileUploadZone() {
               exit={{ opacity: 0 }}
               className="flex flex-col items-center"
             >
-              <AlertCircle className="h-12 w-12 text-red-400 mb-4" />
-              <p className="text-white font-medium">Upload failed</p>
-              <p className="text-white/50 text-sm mt-1 mb-4">{error}</p>
+              <AlertCircle className="h-10 w-10 text-red-600 mb-4" strokeWidth={1.5} />
+              <p className="font-medium text-ink">Upload failed</p>
+              <p className="text-sm text-muted-ink mt-1 mb-4">{error}</p>
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setUploadState("idle");
                   setError(null);
                 }}
-                className="flex items-center gap-2 text-sm text-blue-400 hover:text-blue-300"
+                className="flex items-center gap-2 text-sm text-ink underline underline-offset-4"
               >
                 <X className="h-4 w-4" /> Try again
               </button>
@@ -258,18 +253,18 @@ export function FileUploadZone() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Supported formats info */}
-      <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
+      {/* Supported formats */}
+      <div className="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-px bg-line border border-line">
         {[
-          { ext: "STL", desc: "Most common", color: "text-blue-400" },
-          { ext: "STEP", desc: "Engineering", color: "text-violet-400" },
-          { ext: "OBJ", desc: "3D graphics", color: "text-cyan-400" },
-          { ext: "3MF", desc: "Modern format", color: "text-green-400" },
+          { ext: "STL", desc: "Most common" },
+          { ext: "STEP", desc: "Engineering" },
+          { ext: "OBJ", desc: "3D graphics" },
+          { ext: "3MF", desc: "Modern format" },
         ].map((fmt) => (
-          <div key={fmt.ext} className="glass rounded-xl p-3 text-center">
-            <File className={`h-5 w-5 mx-auto mb-1 ${fmt.color}`} />
-            <p className="text-xs font-bold text-white">.{fmt.ext.toLowerCase()}</p>
-            <p className="text-[10px] text-white/40">{fmt.desc}</p>
+          <div key={fmt.ext} className="bg-white p-3 text-center">
+            <File className="h-4 w-4 mx-auto mb-1 text-ink" strokeWidth={1.25} />
+            <p className="text-xs font-semibold text-ink">.{fmt.ext.toLowerCase()}</p>
+            <p className="text-[10px] text-muted-ink">{fmt.desc}</p>
           </div>
         ))}
       </div>

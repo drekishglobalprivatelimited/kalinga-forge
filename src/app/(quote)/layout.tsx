@@ -5,7 +5,7 @@ export default function QuoteLayout({ children }: { children: React.ReactNode })
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#050505] text-white pt-10">{children}</main>
+      <main className="min-h-screen bg-white text-ink">{children}</main>
       <Footer />
     </>
   );

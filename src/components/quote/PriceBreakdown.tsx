@@ -14,11 +14,11 @@ export function PriceBreakdown() {
   const delivery = DELIVERY_OPTIONS.find((d) => d.id === config.deliverySpeed);
 
   return (
-    <div className="glass rounded-2xl p-6 sticky top-24">
-      <h3 className="text-lg font-semibold text-white mb-6">Price Estimate</h3>
+    <div className="border border-line p-6 lg:sticky lg:top-24">
+      <h3 className="text-[11px] font-semibold uppercase tracking-[0.15em] mb-5">Price estimate</h3>
 
       {/* Main price */}
-      <div className="text-center mb-6 p-6 bg-gradient-to-br from-blue-600/10 to-violet-600/10 rounded-xl border border-white/10">
+      <div className="text-center mb-6 p-6 bg-canvas">
         <AnimatePresence mode="wait">
           <motion.div
             key={estimatedPrice ?? "loading"}
@@ -29,15 +29,15 @@ export function PriceBreakdown() {
           >
             {estimatedPrice ? (
               <>
-                <p className="text-4xl font-bold gradient-text">
+                <p className="text-4xl font-semibold tracking-tight text-ink">
                   {formatCurrency(estimatedPrice)}
                 </p>
-                <p className="text-xs text-white/40 mt-1">Estimated price (excl. 18% GST)</p>
+                <p className="text-xs text-muted-ink mt-1">Estimated price (excl. 18% GST)</p>
               </>
             ) : (
               <div className="space-y-2">
-                <div className="h-10 skeleton rounded-lg" />
-                <div className="h-4 skeleton rounded w-1/2 mx-auto" />
+                <div className="h-10 bg-line animate-pulse" />
+                <div className="h-4 bg-line animate-pulse w-1/2 mx-auto" />
               </div>
             )}
           </motion.div>
@@ -47,7 +47,7 @@ export function PriceBreakdown() {
       {/* Breakdown */}
       {priceBreakdown && (
         <div className="space-y-3 mb-6">
-          <p className="text-xs font-semibold uppercase tracking-wider text-white/40">Breakdown</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-ink">Breakdown</p>
 
           <div className="space-y-2 text-sm">
             <Row
@@ -92,21 +92,21 @@ export function PriceBreakdown() {
             )}
           </div>
 
-          <hr className="border-white/10" />
+          <hr className="border-line" />
 
           <div className="flex justify-between items-center">
-            <span className="text-sm font-semibold text-white">Subtotal</span>
-            <span className="text-sm font-bold text-white">
+            <span className="text-sm font-medium">Subtotal</span>
+            <span className="text-sm font-semibold">
               {formatCurrency(estimatedPrice ?? 0)}
             </span>
           </div>
-          <div className="flex justify-between items-center text-xs text-white/40">
+          <div className="flex justify-between items-center text-xs text-muted-ink">
             <span>GST (18%)</span>
             <span>{formatCurrency((estimatedPrice ?? 0) * 0.18)}</span>
           </div>
-          <div className="flex justify-between items-center border-t border-white/10 pt-2">
-            <span className="text-sm font-bold text-white">Total (incl. GST)</span>
-            <span className="text-lg font-bold gradient-text">
+          <div className="flex justify-between items-center border-t border-line pt-2">
+            <span className="text-sm font-semibold">Total (incl. GST)</span>
+            <span className="text-lg font-semibold">
               {formatCurrency((estimatedPrice ?? 0) * 1.18)}
             </span>
           </div>
@@ -114,17 +114,17 @@ export function PriceBreakdown() {
       )}
 
       {/* Note */}
-      <div className="flex items-start gap-2 p-3 bg-yellow-500/10 border border-yellow-500/20 rounded-xl">
-        <Info className="h-4 w-4 text-yellow-400 shrink-0 mt-0.5" />
-        <p className="text-xs text-white/60 leading-relaxed">
+      <div className="flex items-start gap-2 p-3 bg-amber-50 border border-amber-200">
+        <Info className="h-4 w-4 text-amber-700 shrink-0 mt-0.5" />
+        <p className="text-xs text-ink/70 leading-relaxed">
           This is an automated estimate. Final pricing is reviewed and confirmed by our team within 24 hours.
           {!analysis?.volumeCm3 && " Volume calculated from file size — may vary after analysis."}
         </p>
       </div>
 
       {/* Config summary */}
-      <div className="mt-4 p-3 bg-white/3 rounded-xl space-y-1.5">
-        <p className="text-xs font-semibold uppercase tracking-wider text-white/30 mb-2">Configuration</p>
+      <div className="mt-4 p-4 bg-canvas space-y-1.5">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-ink mb-2">Configuration</p>
         {[
           { label: "Material", value: config.material },
           { label: "Layer", value: `${config.layerHeight} mm` },
@@ -135,8 +135,8 @@ export function PriceBreakdown() {
           { label: "Delivery", value: config.deliverySpeed },
         ].map(({ label, value }) => (
           <div key={label} className="flex justify-between text-xs">
-            <span className="text-white/40">{label}</span>
-            <span className="text-white/80 font-medium">{value}</span>
+            <span className="text-muted-ink">{label}</span>
+            <span className="font-medium capitalize">{value}</span>
           </div>
         ))}
       </div>
@@ -160,12 +160,12 @@ function Row({
   return (
     <div className="flex justify-between items-start">
       <div>
-        <span className="text-white/70">{label}</span>
-        {sub && <p className="text-xs text-white/30">{sub}</p>}
+        <span className="text-ink/80">{label}</span>
+        {sub && <p className="text-xs text-muted-ink">{sub}</p>}
       </div>
       <span
         className={`font-medium shrink-0 ml-4 ${
-          isGreen ? "text-green-400" : isOrange ? "text-orange-400" : "text-white/80"
+          isGreen ? "text-green-700" : isOrange ? "text-forge" : "text-ink"
         }`}
       >
         {value}

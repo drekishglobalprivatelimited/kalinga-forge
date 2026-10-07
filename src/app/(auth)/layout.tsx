@@ -1,25 +1,40 @@
 import Link from "next/link";
-import { Layers } from "lucide-react";
+import Image from "next/image";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-[#050505]">
-      {/* Background glow */}
-      <div className="fixed inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-blue-600/15 rounded-full blur-[120px]" />
+    <div className="min-h-screen grid lg:grid-cols-2 bg-white text-ink">
+      {/* Brand panel */}
+      <div className="relative hidden lg:block bg-canvas">
+        <Image src="/products/ribbed-bulb-vase.jpg" alt="" fill priority sizes="50vw" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/20" />
+        <Link href="/" className="absolute top-8 left-10 font-semibold tracking-[0.18em] text-white">
+          KALINGA<span className="text-forge">·</span>FORGE
+        </Link>
+        <div className="absolute bottom-10 left-10 right-10 text-white">
+          <p className="text-3xl font-semibold tracking-tight leading-tight mb-2">
+            Objects printed
+            <br />
+            layer by layer.
+          </p>
+          <p className="text-sm text-white/80">Track orders, quotes and invoices in one place.</p>
+        </div>
       </div>
 
-      <Link href="/" className="flex items-center gap-2 mb-8">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-violet-600">
-          <Layers className="h-5 w-5 text-white" />
+      {/* Form */}
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between h-16 px-6 sm:px-10 border-b border-line lg:border-0">
+          <Link href="/" className="lg:invisible font-semibold tracking-[0.18em] text-[15px]">
+            KALINGA<span className="text-forge">·</span>FORGE
+          </Link>
+          <Link href="/shop" className="text-xs text-muted-ink hover:text-ink underline underline-offset-4">
+            Back to shop
+          </Link>
         </div>
-        <span className="text-2xl font-bold">
-          <span className="text-white">Kalinga</span>{" "}
-          <span className="gradient-text">Forge</span>
-        </span>
-      </Link>
-
-      <div className="w-full max-w-md">{children}</div>
+        <div className="flex-1 flex items-center justify-center px-6 sm:px-10 py-12">
+          <div className="w-full max-w-sm">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }

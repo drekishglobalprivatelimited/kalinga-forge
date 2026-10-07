@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FileUploadZone } from "@/components/quote/FileUploadZone";
-import { Shield, Zap, Lock } from "lucide-react";
+import { QuoteSteps } from "@/components/quote/QuoteSteps";
+import { Zap, Lock, ShieldCheck, Layers } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Get Instant 3D Printing Quote — Upload Your File",
@@ -9,73 +11,76 @@ export const metadata: Metadata = {
 };
 
 const TRUST_ITEMS = [
-  { icon: <Zap className="h-4 w-4 text-blue-400" />, text: "Instant price estimate" },
-  { icon: <Lock className="h-4 w-4 text-green-400" />, text: "Files encrypted & private" },
-  { icon: <Shield className="h-4 w-4 text-violet-400" />, text: "No commitment required" },
+  { icon: Zap, title: "Instant estimate", body: "Price in under a minute" },
+  { icon: Lock, title: "Private files", body: "Your designs stay yours" },
+  { icon: ShieldCheck, title: "No commitment", body: "Pay only after approval" },
+  { icon: Layers, title: "9 materials", body: "PLA to carbon fibre & resin" },
+];
+
+const TIPS = [
+  "Export from Fusion 360, SolidWorks or Blender as STL or STEP.",
+  "Make sure the model is manifold (watertight) for the best print quality.",
+  "Several parts? Upload the main one and list the rest in the notes.",
 ];
 
 export default function QuotePage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 py-16">
-      {/* Header */}
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-4">
-          <span className="flex h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
-          <span className="text-sm text-white/60">Step 1 of 3</span>
+    <>
+      <div className="bg-canvas">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-14">
+          <nav className="text-xs text-muted-ink mb-3">
+            <Link href="/" className="hover:text-ink">Home</Link>
+            <span className="mx-1.5">/</span>
+            <span className="text-ink">Custom 3D Printing</span>
+          </nav>
+          <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight">Custom 3D printing</h1>
+          <p className="text-sm text-muted-ink mt-2 max-w-xl">
+            Prototypes, replacement parts or one-off gifts. Upload your design, choose a material and get an instant
+            estimate — our team confirms the final quote within 24 hours.
+          </p>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3">
-          Upload Your <span className="gradient-text">3D File</span>
-        </h1>
-        <p className="text-white/50 max-w-md mx-auto">
-          We&apos;ll analyze your file instantly and take you to the pricing configurator.
-        </p>
       </div>
 
-      {/* Progress */}
-      <div className="flex items-center gap-2 mb-10 justify-center">
-        {["Upload", "Configure", "Submit"].map((step, i) => (
-          <div key={step} className="flex items-center gap-2">
-            <div className={`flex items-center justify-center w-7 h-7 rounded-full text-xs font-bold ${
-              i === 0 ? "bg-blue-600 text-white" : "bg-white/10 text-white/40"
-            }`}>
-              {i + 1}
-            </div>
-            <span className={`text-sm ${i === 0 ? "text-white" : "text-white/40"}`}>{step}</span>
-            {i < 2 && <div className="w-8 h-px bg-white/15" />}
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 py-10 sm:py-14 grid lg:grid-cols-[1.6fr_1fr] gap-10 lg:gap-16">
+        <section>
+          <div className="mb-6">
+            <QuoteSteps current={0} />
           </div>
-        ))}
-      </div>
+          <FileUploadZone />
+        </section>
 
-      <FileUploadZone />
+        <aside className="space-y-8">
+          <ul className="grid grid-cols-2 gap-px bg-line border border-line">
+            {TRUST_ITEMS.map(({ icon: Icon, title, body }) => (
+              <li key={title} className="bg-white p-5">
+                <Icon className="h-5 w-5 mb-3" strokeWidth={1.25} />
+                <p className="text-sm font-medium">{title}</p>
+                <p className="text-xs text-muted-ink mt-0.5">{body}</p>
+              </li>
+            ))}
+          </ul>
 
-      {/* Trust badges */}
-      <div className="mt-8 flex flex-wrap gap-4 justify-center">
-        {TRUST_ITEMS.map((item) => (
-          <div key={item.text} className="flex items-center gap-2 text-sm text-white/50">
-            {item.icon}
-            {item.text}
+          <div>
+            <p className="text-[11px] uppercase tracking-[0.15em] text-muted-ink mb-3">Tips for best results</p>
+            <ol className="space-y-3">
+              {TIPS.map((tip, i) => (
+                <li key={tip} className="flex gap-3 text-sm text-ink/80">
+                  <span className="text-muted-ink tabular-nums">0{i + 1}</span>
+                  {tip}
+                </li>
+              ))}
+            </ol>
           </div>
-        ))}
-      </div>
 
-      {/* Supported formats clarification */}
-      <div className="mt-8 glass rounded-xl p-5">
-        <p className="text-sm font-medium text-white mb-3">Tips for best results:</p>
-        <ul className="space-y-2 text-sm text-white/50">
-          <li className="flex items-start gap-2">
-            <span className="text-blue-400 mt-0.5">→</span>
-            <span>Export from Fusion 360, SolidWorks, or Blender as STL or STEP</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-blue-400 mt-0.5">→</span>
-            <span>Ensure the model is manifold (watertight) for best print quality</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-blue-400 mt-0.5">→</span>
-            <span>Don&apos;t have a file? Contact us for CAD design services</span>
-          </li>
-        </ul>
+          <div className="border-t border-line pt-6 text-sm text-ink/80">
+            Don&apos;t have a 3D file?{" "}
+            <Link href="/contact" className="font-medium text-ink underline underline-offset-4">
+              Ask us about design help
+            </Link>
+            .
+          </div>
+        </aside>
       </div>
-    </div>
+    </>
   );
 }
