@@ -1,6 +1,12 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Created on first use so builds without RESEND_API_KEY don't fail.
+let client: Resend | null = null;
+
+export function getResend() {
+  client ??= new Resend(process.env.RESEND_API_KEY);
+  return client;
+}
 const FROM = process.env.EMAIL_FROM ?? "noreply@kalingaforge.in";
 const BUSINESS_NAME = process.env.NEXT_PUBLIC_BUSINESS_NAME ?? "Kalinga Forge";
 
@@ -12,7 +18,7 @@ export async function sendQuoteSubmittedEmail(data: {
   quantity: number;
   estimatedPrice: number;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${BUSINESS_NAME} <${FROM}>`,
     to: data.to,
     subject: `Quote Request Received — ${data.referenceNo}`,
@@ -51,7 +57,7 @@ export async function sendAdminNewQuoteAlert(data: {
   quoteId: string;
 }) {
   const adminEmail = process.env.ADMIN_EMAIL ?? "admin@kalingaforge.in";
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${BUSINESS_NAME} <${FROM}>`,
     to: adminEmail,
     subject: `[NEW QUOTE] ${data.referenceNo} — ₹${data.estimatedPrice.toLocaleString("en-IN")}`,
@@ -76,7 +82,7 @@ export async function sendQuoteStatusUpdate(data: {
   status: string;
   message?: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${BUSINESS_NAME} <${FROM}>`,
     to: data.to,
     subject: `Quote Update: ${data.referenceNo} — ${data.status}`,
@@ -105,7 +111,7 @@ export async function sendOrderStatusUpdate(data: {
   trackingNumber?: string;
   trackingUrl?: string;
 }) {
-  return resend.emails.send({
+  return getResend().emails.send({
     from: `${BUSINESS_NAME} <${FROM}>`,
     to: data.to,
     subject: `Order Update: ${data.orderNo} — ${data.status}`,

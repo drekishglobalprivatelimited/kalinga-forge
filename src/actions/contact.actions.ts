@@ -3,9 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { contactSchema } from "@/lib/validations";
 import type { ContactInput } from "@/lib/validations";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResend } from "@/lib/email";
 
 export async function submitContactForm(data: ContactInput) {
   const parsed = contactSchema.safeParse(data);
@@ -26,7 +24,7 @@ export async function submitContactForm(data: ContactInput) {
 
     // Notify admin
     const adminEmail = process.env.ADMIN_EMAIL ?? "admin@kalingaforge.in";
-    await resend.emails.send({
+    await getResend().emails.send({
       from: `Kalinga Forge <${process.env.EMAIL_FROM ?? "noreply@kalingaforge.in"}>`,
       to: adminEmail,
       subject: `[NEW LEAD] ${data.name} — ${data.source}`,
