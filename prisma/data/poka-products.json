@@ -48,6 +48,12 @@
       "slug": "toys-and-figures",
       "description": "A playful figure for kids and collectors alike.",
       "sortOrder": 8
+    },
+    {
+      "name": "Printer Upgrades",
+      "slug": "printer-upgrades",
+      "description": "A practical upgrade part for your 3D printer.",
+      "sortOrder": 9
     }
   ],
   "products": [
@@ -2634,6 +2640,557 @@
         "Black"
       ],
       "image": "/products/low-poly-space-toys.jpg"
+    },
+    {
+      "name": "Mecha Chameleon Fridge Magnets",
+      "slug": "mecha-chameleon-fridge-magnets",
+      "sku": "PPS-HOM-MECHA-CHAMELEON-FRIDGE-MAGNETS",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Mecha Chameleon Fridge Magnets — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/mecha-chameleon-fridge-magnets.jpg"
+    },
+    {
+      "name": "Twisted Flute Vase",
+      "slug": "twisted-flute-vase",
+      "sku": "PPS-HOM-TWISTED-FLUTE-VASE",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Twisted Flute Vase — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/twisted-flute-vase.jpg"
+    },
+    {
+      "name": "Swirl Vase",
+      "slug": "swirl-vase",
+      "sku": "PPS-HOM-SWIRL-VASE",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Swirl Vase — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/swirl-vase.jpg"
+    },
+    {
+      "name": "Ribbed Bulb Vase",
+      "slug": "ribbed-bulb-vase",
+      "sku": "PPS-HOM-RIBBED-BULB-VASE",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Ribbed Bulb Vase — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/ribbed-bulb-vase.jpg"
+    },
+    {
+      "name": "Cotton Bud Holder",
+      "slug": "cotton-bud-holder",
+      "sku": "PPS-HOM-COTTON-BUD-HOLDER",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Cotton Bud Holder — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/cotton-bud-holder.jpg"
+    },
+    {
+      "name": "Round Jewellery Tray",
+      "slug": "round-jewellery-tray",
+      "sku": "PPS-HOM-ROUND-JEWELLERY-TRAY",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Round Jewellery Tray — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/round-jewellery-tray.jpg"
+    },
+    {
+      "name": "Yin Yang Candle Holder",
+      "slug": "yin-yang-candle-holder",
+      "sku": "PPS-HOM-YIN-YANG-CANDLE-HOLDER",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Yin Yang Candle Holder — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/yin-yang-candle-holder.jpg"
+    },
+    {
+      "name": "Nintendo Switch Cartridge Holder",
+      "slug": "nintendo-switch-cartridge-holder",
+      "sku": "PPS-GAM-NINTENDO-SWITCH-CARTRIDGE-HOLDER",
+      "category": "Gaming Setup",
+      "shortDesc": "A clean accessory to organise and level up your gaming setup.",
+      "description": "Nintendo Switch Cartridge Holder — A clean accessory to organise and level up your gaming setup. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "gaming setup"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/nintendo-switch-cartridge-holder.jpg"
+    },
+    {
+      "name": "Low Poly Labrador",
+      "slug": "low-poly-labrador",
+      "sku": "PPS-LPY-LOW-POLY-LABRADOR",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Labrador — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-labrador.jpg"
+    },
+    {
+      "name": "Low Poly Skull",
+      "slug": "low-poly-skull",
+      "sku": "PPS-LPY-LOW-POLY-SKULL",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Skull — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-skull.jpg"
+    },
+    {
+      "name": "Low Poly Bulbasaur",
+      "slug": "low-poly-bulbasaur",
+      "sku": "PPS-LPY-LOW-POLY-BULBASAUR",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Bulbasaur — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-bulbasaur.jpg"
+    },
+    {
+      "name": "Low Poly Charmander",
+      "slug": "low-poly-charmander",
+      "sku": "PPS-LPY-LOW-POLY-CHARMANDER",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Charmander — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-charmander.jpg"
+    },
+    {
+      "name": "Low Poly Eevee",
+      "slug": "low-poly-eevee",
+      "sku": "PPS-LPY-LOW-POLY-EEVEE",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Eevee — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-eevee.jpg"
+    },
+    {
+      "name": "Low Poly Pikachu",
+      "slug": "low-poly-pikachu",
+      "sku": "PPS-LPY-LOW-POLY-PIKACHU",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Pikachu — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-pikachu.jpg"
+    },
+    {
+      "name": "Low Poly Snorlax",
+      "slug": "low-poly-snorlax",
+      "sku": "PPS-LPY-LOW-POLY-SNORLAX",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Snorlax — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-snorlax.jpg"
+    },
+    {
+      "name": "Low Poly Squirtle",
+      "slug": "low-poly-squirtle",
+      "sku": "PPS-LPY-LOW-POLY-SQUIRTLE",
+      "category": "Low Poly Collection",
+      "shortDesc": "A faceted low-poly sculpture with crisp geometric edges.",
+      "description": "Low Poly Squirtle — A faceted low-poly sculpture with crisp geometric edges. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "low poly collection"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/low-poly-squirtle.jpg"
+    },
+    {
+      "name": "Ribbed Leg Planter",
+      "slug": "ribbed-leg-planter",
+      "sku": "PPS-HOM-RIBBED-LEG-PLANTER",
+      "category": "Home & Décor",
+      "shortDesc": "A decorative piece that brings character to any room.",
+      "description": "Ribbed Leg Planter — A decorative piece that brings character to any room. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "home and decor"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/ribbed-leg-planter.jpg"
+    },
+    {
+      "name": "GPU Support (Nvidia & Radeon)",
+      "slug": "gpu-support-nvidia-and-radeon",
+      "sku": "PPS-GAM-GPU-SUPPORT-NVIDIA-AND-RADEON",
+      "category": "Gaming Setup",
+      "shortDesc": "A clean accessory to organise and level up your gaming setup.",
+      "description": "GPU Support (Nvidia & Radeon) — A clean accessory to organise and level up your gaming setup. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "gaming setup"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/gpu-support-nvidia-and-radeon.jpg"
+    },
+    {
+      "name": "Arduino Bumper",
+      "slug": "arduino-bumper",
+      "sku": "PPS-DSK-ARDUINO-BUMPER",
+      "category": "Desk & Gadgets",
+      "shortDesc": "A handy desk accessory that keeps your space tidy and fun.",
+      "description": "Arduino Bumper — A handy desk accessory that keeps your space tidy and fun. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "desk and gadgets"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/arduino-bumper.jpg"
+    },
+    {
+      "name": "Car Seat Phone Stand",
+      "slug": "car-seat-phone-stand",
+      "sku": "PPS-DSK-CAR-SEAT-PHONE-STAND",
+      "category": "Desk & Gadgets",
+      "shortDesc": "A handy desk accessory that keeps your space tidy and fun.",
+      "description": "Car Seat Phone Stand — A handy desk accessory that keeps your space tidy and fun. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "desk and gadgets"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/car-seat-phone-stand.jpg"
+    },
+    {
+      "name": "HyperFREE PC Case",
+      "slug": "hyperfree-pc-case",
+      "sku": "PPS-DSK-HYPERFREE-PC-CASE",
+      "category": "Desk & Gadgets",
+      "shortDesc": "A handy desk accessory that keeps your space tidy and fun.",
+      "description": "HyperFREE PC Case — A handy desk accessory that keeps your space tidy and fun. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "desk and gadgets"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/hyperfree-pc-case.jpg"
+    },
+    {
+      "name": "Quitstick",
+      "slug": "quitstick",
+      "sku": "PPS-DSK-QUITSTICK",
+      "category": "Desk & Gadgets",
+      "shortDesc": "A handy desk accessory that keeps your space tidy and fun.",
+      "description": "Quitstick — A handy desk accessory that keeps your space tidy and fun. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "desk and gadgets"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/quitstick.jpg"
+    },
+    {
+      "name": "Squeeze Breeze Hand Fan",
+      "slug": "squeeze-breeze-hand-fan",
+      "sku": "PPS-DSK-SQUEEZE-BREEZE-HAND-FAN",
+      "category": "Desk & Gadgets",
+      "shortDesc": "A handy desk accessory that keeps your space tidy and fun.",
+      "description": "Squeeze Breeze Hand Fan — A handy desk accessory that keeps your space tidy and fun. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "desk and gadgets"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/squeeze-breeze-hand-fan.jpg"
+    },
+    {
+      "name": "Carbon-13 Jointed Figure",
+      "slug": "carbon-13-jointed-figure",
+      "sku": "PPS-TOY-CARBON-13-JOINTED-FIGURE",
+      "category": "Toys & Figures",
+      "shortDesc": "A playful figure for kids and collectors alike.",
+      "description": "Carbon-13 Jointed Figure — A playful figure for kids and collectors alike. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "toys and figures"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/carbon-13-jointed-figure.jpg"
+    },
+    {
+      "name": "AD5X Enclosure",
+      "slug": "ad5x-enclosure",
+      "sku": "PPS-PRU-AD5X-ENCLOSURE",
+      "category": "Printer Upgrades",
+      "shortDesc": "A practical upgrade part for your 3D printer.",
+      "description": "AD5X Enclosure — A practical upgrade part for your 3D printer. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "printer upgrades"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/ad5x-enclosure.jpg"
+    },
+    {
+      "name": "AD5X Poop Chute",
+      "slug": "ad5x-poop-chute",
+      "sku": "PPS-PRU-AD5X-POOP-CHUTE",
+      "category": "Printer Upgrades",
+      "shortDesc": "A practical upgrade part for your 3D printer.",
+      "description": "AD5X Poop Chute — A practical upgrade part for your 3D printer. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "printer upgrades"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/ad5x-poop-chute.jpg"
+    },
+    {
+      "name": "PTFE Tube Remover",
+      "slug": "ptfe-tube-remover",
+      "sku": "PPS-PRU-PTFE-TUBE-REMOVER",
+      "category": "Printer Upgrades",
+      "shortDesc": "A practical upgrade part for your 3D printer.",
+      "description": "PTFE Tube Remover — A practical upgrade part for your 3D printer. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "printer upgrades"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/ptfe-tube-remover.jpg"
+    },
+    {
+      "name": "Bowden Tube Remover",
+      "slug": "bowden-tube-remover",
+      "sku": "PPS-PRU-BOWDEN-TUBE-REMOVER",
+      "category": "Printer Upgrades",
+      "shortDesc": "A practical upgrade part for your 3D printer.",
+      "description": "Bowden Tube Remover — A practical upgrade part for your 3D printer. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "printer upgrades"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/bowden-tube-remover.jpg"
+    },
+    {
+      "name": "Anti Ghost Flap",
+      "slug": "anti-ghost-flap",
+      "sku": "PPS-PRU-ANTI-GHOST-FLAP",
+      "category": "Printer Upgrades",
+      "shortDesc": "A practical upgrade part for your 3D printer.",
+      "description": "Anti Ghost Flap — A practical upgrade part for your 3D printer. Printed to order in premium PLA at Poka Print Studio. Colours: Black.",
+      "basePrice": 50.0,
+      "isFeatured": false,
+      "material": "PLA",
+      "tags": [
+        "black",
+        "printer upgrades"
+      ],
+      "colors": [
+        "Black"
+      ],
+      "image": "/products/anti-ghost-flap.jpg"
     }
   ]
 }
