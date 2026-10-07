@@ -29,8 +29,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           </div>
           <div>
             <span className="font-bold text-sm">
-              <span className="text-white">Poka Print</span>{" "}
-              <span className="gradient-text">Studio</span>
+              <span className="text-white">Kalinga</span>{" "}
+              <span className="gradient-text">Forge</span>
             </span>
             <span className="block text-[10px] text-white/30">Admin</span>
           </div>

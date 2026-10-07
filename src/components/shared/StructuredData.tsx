@@ -2,10 +2,10 @@ export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    name: "Poka Print Studio",
+    name: "Kalinga Forge",
     description:
       "India's premium 3D printing service. Custom prototypes, engineering parts, gifts, and more. Fast turnaround, competitive pricing.",
-    url: process.env.NEXT_PUBLIC_APP_URL ?? "https://pokaprintstudio.in",
+    url: process.env.NEXT_PUBLIC_APP_URL ?? "https://kalingaforge.in",
     telephone: process.env.NEXT_PUBLIC_BUSINESS_PHONE,
     priceRange: "₹₹",
     image: `${process.env.NEXT_PUBLIC_APP_URL}/og-default.jpg`,
@@ -93,13 +93,13 @@ export function ProductSchema({
     description: product.description,
     image: product.image,
     url: `${process.env.NEXT_PUBLIC_APP_URL}/shop/${product.slug}`,
-    brand: { "@type": "Brand", name: "Poka Print Studio" },
+    brand: { "@type": "Brand", name: "Kalinga Forge" },
     offers: {
       "@type": "Offer",
       price: product.price,
       priceCurrency: "INR",
       availability: "https://schema.org/InStock",
-      seller: { "@type": "Organization", name: "Poka Print Studio" },
+      seller: { "@type": "Organization", name: "Kalinga Forge" },
     },
     ...(product.reviews && product.reviews.length > 0
       ? {

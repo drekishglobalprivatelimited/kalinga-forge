@@ -1,8 +1,8 @@
-# Poka Print Studio — Project Status & Developer Handoff
+# Kalinga Forge — Project Status & Developer Handoff
 
 ## What Is This
 
-**Poka Print Studio** is a full-stack 3D printing e-commerce platform built with Next.js 16 (App Router, Turbopack), React 19, Prisma 7 + PostgreSQL, NextAuth v5, Razorpay, AWS S3, and Resend.
+**Kalinga Forge** is a full-stack 3D printing e-commerce platform built with Next.js 16 (App Router, Turbopack), React 19, Prisma 7 + PostgreSQL, NextAuth v5, Razorpay, AWS S3, and Resend.
 
 Two business models:
 1. **Custom quote flow** — customer uploads STL/STEP/OBJ/3MF → instant price estimate → admin reviews → sends payment link → production
@@ -16,7 +16,7 @@ Copy `.env` (already exists) and fill in:
 
 ```bash
 # Database — local Postgres required
-DATABASE_URL="postgresql://postgres:password@localhost:5432/poka_print_studio?schema=public"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/kalinga_forge?schema=public"
 
 # NextAuth — generate with: openssl rand -base64 32
 AUTH_SECRET="..."
@@ -25,7 +25,7 @@ AUTH_SECRET="..."
 AWS_REGION="ap-south-1"
 AWS_ACCESS_KEY_ID="..."
 AWS_SECRET_ACCESS_KEY="..."
-AWS_S3_BUCKET="poka-print-studio-uploads"
+AWS_S3_BUCKET="kalinga-forge-uploads"
 
 # Razorpay (required for payment flow)
 RAZORPAY_KEY_ID="..."
@@ -34,26 +34,26 @@ NEXT_PUBLIC_RAZORPAY_KEY_ID="..."
 
 # Resend (required for email notifications)
 RESEND_API_KEY="..."
-EMAIL_FROM="noreply@pokaprintstudio.in"
+EMAIL_FROM="noreply@kalingaforge.in"
 
 # App
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 NEXT_PUBLIC_WHATSAPP_NUMBER="919876543210"
-ADMIN_EMAIL="admin@pokaprintstudio.in"
+ADMIN_EMAIL="admin@kalingaforge.in"
 ```
 
 ### Start PostgreSQL locally
 
 ```bash
 # Docker (recommended)
-docker run --name poka-print-studio-db -e POSTGRES_PASSWORD=password -e POSTGRES_DB=poka_print_studio -p 5432:5432 -d postgres:16
+docker run --name kalinga-forge-db -e POSTGRES_PASSWORD=password -e POSTGRES_DB=kalinga_forge -p 5432:5432 -d postgres:16
 
 # Then push schema and seed
 npm run db:push
 npm run db:seed
 ```
 
-Default admin after seed: `admin@pokaprintstudio.in` / `Admin@123`
+Default admin after seed: `admin@kalingaforge.in` / `Admin@123`
 
 ---
 

@@ -14,8 +14,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
           <Layers className="h-5 w-5 text-white" />
         </div>
         <span className="text-2xl font-bold">
-          <span className="text-white">Poka Print</span>{" "}
-          <span className="gradient-text">Studio</span>
+          <span className="text-white">Kalinga</span>{" "}
+          <span className="gradient-text">Forge</span>
         </span>
       </Link>
 

@@ -39,7 +39,7 @@ export default async function AdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white">Admin Overview</h1>
-          <p className="text-white/50 mt-1">Manage Poka Print Studio operations</p>
+          <p className="text-white/50 mt-1">Manage Kalinga Forge operations</p>
         </div>
         <div className="glass rounded-xl px-5 py-3">
           <p className="text-xs text-white/40">Total Revenue</p>

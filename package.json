@@ -1,5 +1,5 @@
 {
-  "name": "website",
+  "name": "kalinga_forge",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "db:push": "prisma db push",
-    "db:seed": "npx ts-node --esm prisma/seed.ts",
+    "db:seed": "npx tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
   },

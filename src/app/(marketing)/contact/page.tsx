@@ -49,7 +49,7 @@ export default function ContactPage() {
           <div className="space-y-6">
             {[
               { icon: <Phone className="h-5 w-5" />, label: "Phone", value: process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "+91 98765 43210", href: `tel:${process.env.NEXT_PUBLIC_BUSINESS_PHONE}` },
-              { icon: <Mail className="h-5 w-5" />, label: "Email", value: "hello@pokaprintstudio.in", href: "mailto:hello@pokaprintstudio.in" },
+              { icon: <Mail className="h-5 w-5" />, label: "Email", value: "hello@kalingaforge.in", href: "mailto:hello@kalingaforge.in" },
               { icon: <MessageCircle className="h-5 w-5 text-green-400" />, label: "WhatsApp", value: "Chat on WhatsApp", href: `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER}` },
               { icon: <MapPin className="h-5 w-5" />, label: "Location", value: "Bangalore, Karnataka, India", href: undefined },
               { icon: <Clock className="h-5 w-5" />, label: "Business Hours", value: "Mon–Sat, 9am–8pm IST", href: undefined },

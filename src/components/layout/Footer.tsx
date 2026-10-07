@@ -60,8 +60,8 @@ export function Footer() {
                 <Layers className="h-5 w-5 text-white" />
               </div>
               <span className="text-2xl font-bold">
-                <span className="text-white">Poka Print</span>{" "}
-                <span className="gradient-text">Studio</span>
+                <span className="text-white">Kalinga</span>{" "}
+                <span className="gradient-text">Forge</span>
               </span>
             </Link>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm mb-6">
@@ -76,8 +76,8 @@ export function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-white/50">
                 <Mail className="h-4 w-4 text-blue-400 shrink-0" />
-                <a href="mailto:hello@pokaprintstudio.in" className="hover:text-white transition-colors">
-                  hello@pokaprintstudio.in
+                <a href="mailto:hello@kalingaforge.in" className="hover:text-white transition-colors">
+                  hello@kalingaforge.in
                 </a>
               </div>
               <div className="flex items-start gap-2 text-sm text-white/50">
@@ -109,7 +109,7 @@ export function Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-sm text-white/40">
-            © {new Date().getFullYear()} Poka Print Studio. All rights reserved. GST:{" "}
+            © {new Date().getFullYear()} Kalinga Forge. All rights reserved. GST:{" "}
             {process.env.NEXT_PUBLIC_BUSINESS_GST ?? "29AABCU9603R1ZP"}
           </p>
           <div className="flex items-center gap-3">
