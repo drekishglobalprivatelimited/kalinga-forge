@@ -1,305 +1,286 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/store/cartStore";
-import {
-  ShoppingCart,
-  ChevronDown,
-  Layers,
-  Package,
-  Settings,
-  LayoutDashboard,
-  LogOut,
-  User,
-} from "lucide-react";
+import { CartDrawer } from "@/components/shop/CartDrawer";
+import { NAV_MENU, SHOP_CATEGORIES } from "@/constants/categories";
 import { logout } from "@/actions/auth.actions";
+import { Search, User, ShoppingBag, Menu, X, ChevronDown, ChevronRight } from "lucide-react";
 
-const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  {
-    label: "Services",
-    children: [
-      { href: "/services", label: "All Services" },
-      { href: "/quote", label: "Get a Quote" },
-      { href: "/materials", label: "Materials Guide" },
-    ],
-  },
-  { href: "/shop", label: "Shop" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
+const ANNOUNCEMENTS = [
+  "Printed to order in premium PLA · Ships across India",
+  "Have a design? Get a custom 3D print quote in minutes",
 ];
 
 export function Header() {
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const router = useRouter();
   const { data: session } = useSession();
   const totalItems = useCartStore((s) => s.totalItems());
+  const openCart = useCartStore((s) => s.openCart);
+
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [announcement, setAnnouncement] = useState(0);
+  const searchRef = useRef<HTMLInputElement>(null);
+
+  // Cart count comes from localStorage; render it only after hydration.
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   useEffect(() => {
-    document.body.style.overflow = isMobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [isMobileOpen]);
+    const id = setInterval(() => setAnnouncement((i) => (i + 1) % ANNOUNCEMENTS.length), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    if (searchOpen) searchRef.current?.focus();
+  }, [searchOpen]);
+
+  function submitSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const q = query.trim();
+    if (!q) return;
+    setSearchOpen(false);
+    setMobileOpen(false);
+    router.push(`/shop?q=${encodeURIComponent(q)}`);
+  }
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 px-4 pointer-events-none">
-      {/* Floating pill nav */}
-      <motion.nav
-        className="pointer-events-auto flex items-center gap-1 rounded-full bg-black/50 backdrop-blur-2xl border border-white/[0.07] px-3 py-2 shadow-[0_8px_40px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.06)]"
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-      >
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 mr-2 group shrink-0">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600 shadow-[0_0_12px_rgba(99,102,241,0.4)]">
-            <Layers className="h-3.5 w-3.5 text-white" strokeWidth={1.5} />
-          </div>
-          <span className="text-sm font-bold tracking-tight">
-            <span className="text-white">Kalinga</span>{" "}
-            <span className="gradient-text">Forge</span>
-          </span>
-        </Link>
+    <>
+      {/* Announcement bar */}
+      <div className="bg-ink text-white text-[11px] sm:text-xs tracking-wide text-center py-2 px-4">
+        <p key={announcement} className="animate-[fadeIn_0.4s_ease]">
+          {ANNOUNCEMENTS[announcement]}
+        </p>
+      </div>
 
-        {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-0.5">
-          {NAV_LINKS.map((link) =>
-            link.children ? (
-              <div key={link.label} className="relative">
-                <button
-                  onMouseEnter={() => setOpenDropdown(link.label)}
-                  onMouseLeave={() => setOpenDropdown(null)}
-                  className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-white/55 hover:text-white transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full hover:bg-white/[0.05]"
-                >
-                  {link.label}
-                  <ChevronDown
-                    className="h-3 w-3 transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]"
-                    strokeWidth={1}
-                    style={{ transform: openDropdown === link.label ? "rotate(180deg)" : "rotate(0deg)" }}
-                  />
-                </button>
-                <AnimatePresence>
-                  {openDropdown === link.label && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                      transition={{ duration: 0.22, ease: [0.32, 0.72, 0, 1] }}
-                      className="absolute left-0 top-full mt-2 w-44 origin-top"
-                      onMouseEnter={() => setOpenDropdown(link.label)}
-                      onMouseLeave={() => setOpenDropdown(null)}
-                    >
-                      <div className="p-[1.5px] rounded-[1.2rem] bg-white/[0.04] border border-white/[0.08]">
-                        <div className="rounded-[calc(1.2rem-1.5px)] bg-zinc-950/98 border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] p-1.5">
-                          {link.children.map((child) => (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className="block rounded-xl px-3 py-2 text-xs text-white/55 hover:bg-white/[0.05] hover:text-white transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]"
-                            >
-                              {child.label}
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href!}
-                className="px-3 py-1.5 text-xs font-medium text-white/55 hover:text-white transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-full hover:bg-white/[0.05]"
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-        </div>
-
-        <div className="hidden md:block h-4 w-px bg-white/10 mx-1" />
-
-        {/* Actions */}
-        <div className="flex items-center gap-1">
-          {/* Cart */}
-          <Link href="/cart" className="relative group">
-            <div className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/[0.05] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.95]">
-              <ShoppingCart className="h-3.5 w-3.5 text-white/55 group-hover:text-white transition-colors" strokeWidth={1} />
-            </div>
-            {totalItems > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-blue-600 text-[9px] font-bold text-white shadow-[0_0_8px_rgba(37,99,235,0.6)]">
-                {totalItems}
-              </span>
-            )}
-          </Link>
-
-          {/* Auth — desktop */}
-          {session ? (
-            <div className="relative group hidden md:block">
-              <button className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-medium text-white/55 hover:text-white transition-colors rounded-full hover:bg-white/[0.05]">
-                <User className="h-3.5 w-3.5" strokeWidth={1} />
-                <span className="max-w-[72px] truncate">{session.user?.name ?? "Account"}</span>
-                <ChevronDown className="h-3 w-3" strokeWidth={1} />
-              </button>
-              <div className="absolute right-0 top-full mt-2 w-44 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                <div className="p-[1.5px] rounded-[1.2rem] bg-white/[0.04] border border-white/[0.08]">
-                  <div className="rounded-[calc(1.2rem-1.5px)] bg-zinc-950/98 border border-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] p-1.5">
-                    {session.user?.role === "ADMIN" ? (
-                      <Link href="/admin" className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-white/55 hover:bg-white/[0.05] hover:text-white transition-colors">
-                        <Settings className="h-3.5 w-3.5" strokeWidth={1} /> Admin Panel
-                      </Link>
-                    ) : (
-                      <Link href="/dashboard" className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-white/55 hover:bg-white/[0.05] hover:text-white transition-colors">
-                        <LayoutDashboard className="h-3.5 w-3.5" strokeWidth={1} /> Dashboard
-                      </Link>
-                    )}
-                    <Link href="/orders" className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs text-white/55 hover:bg-white/[0.05] hover:text-white transition-colors">
-                      <Package className="h-3.5 w-3.5" strokeWidth={1} /> Orders
-                    </Link>
-                    <hr className="my-1 border-white/[0.06]" />
-                    <form action={logout}>
-                      <button className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-red-400/70 hover:bg-red-500/[0.08] hover:text-red-400 transition-colors">
-                        <LogOut className="h-3.5 w-3.5" strokeWidth={1} /> Sign Out
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ) : (
-            <Link href="/login" className="hidden md:block">
-              <span className="px-3 py-1.5 text-xs font-medium text-white/55 hover:text-white transition-colors rounded-full hover:bg-white/[0.05] cursor-pointer">
-                Sign in
-              </span>
-            </Link>
-          )}
-
-          {/* Primary CTA — button-in-button */}
-          <Link href="/quote">
-            <div className="group flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 pl-4 pr-1.5 py-1.5 active:scale-[0.97] transition-transform duration-200 ease-[cubic-bezier(0.32,0.72,0,1)] shadow-[0_0_20px_rgba(99,102,241,0.3)]">
-              <span className="text-xs font-semibold text-white">Get Quote</span>
-              <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]">
-                <svg className="w-2.5 h-2.5 text-white" viewBox="0 0 10 10" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M2 8L8 2M8 2H4M8 2V6" />
-                </svg>
-              </div>
-            </div>
-          </Link>
-
-          {/* Mobile hamburger */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-line">
+        <div className="max-w-[1400px] mx-auto h-16 px-4 sm:px-6 flex items-center gap-4">
+          {/* Mobile menu */}
           <button
-            className="md:hidden w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/[0.05] transition-colors"
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            aria-label="Toggle menu"
+            className="lg:hidden -ml-1 p-1.5 text-ink"
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
           >
-            <div className="relative w-4 h-3">
-              <span className={`absolute top-0 left-0 h-px w-4 bg-white/70 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center ${isMobileOpen ? "top-1.5 rotate-45" : ""}`} />
-              <span className={`absolute top-1.5 left-0 h-px bg-white/70 transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] ${isMobileOpen ? "w-0 opacity-0" : "w-3 opacity-100"}`} />
-              <span className={`absolute top-3 left-0 h-px w-4 bg-white/70 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)] origin-center ${isMobileOpen ? "top-1.5 -rotate-45" : ""}`} />
-            </div>
+            <Menu className="h-5 w-5" strokeWidth={1.5} />
           </button>
-        </div>
-      </motion.nav>
 
-      {/* Mobile full-screen overlay */}
-      <AnimatePresence>
-        {isMobileOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed inset-0 bg-black/88 backdrop-blur-3xl flex flex-col items-center justify-center pointer-events-auto"
-          >
-            <nav className="flex flex-col items-center gap-1 w-full px-8">
-              {NAV_LINKS.map((link, i) =>
-                link.children ? (
-                  <div key={link.label} className="w-full text-center mb-2">
-                    <motion.p
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.06 + i * 0.04, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                      className="text-[9px] uppercase tracking-[0.25em] text-white/25 font-medium mb-2"
-                    >
-                      {link.label}
-                    </motion.p>
-                    {link.children.map((child, j) => (
-                      <motion.div
+          {/* Logo */}
+          <Link href="/" className="shrink-0 font-semibold tracking-[0.18em] text-[15px] sm:text-base text-ink">
+            KALINGA<span className="text-forge">·</span>FORGE
+          </Link>
+
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-1 mx-auto">
+            {NAV_MENU.map((item) =>
+              "children" in item ? (
+                <div key={item.label} className="relative group">
+                  <Link
+                    href={item.href}
+                    className="flex items-center gap-1 px-3 py-5 text-[13px] text-ink/80 hover:text-ink transition-colors"
+                  >
+                    {item.label}
+                    <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:rotate-180" strokeWidth={1.5} />
+                  </Link>
+                  <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity absolute left-0 top-full w-60 bg-white border border-line shadow-lg py-2">
+                    {item.children.map((child) => (
+                      <Link
                         key={child.href}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.08 + i * 0.04 + j * 0.03, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
+                        href={child.href}
+                        className="block px-5 py-2.5 text-[13px] text-ink/75 hover:text-ink hover:bg-canvas transition-colors"
                       >
-                        <Link
-                          href={child.href}
-                          onClick={() => setIsMobileOpen(false)}
-                          className="block py-1.5 text-sm text-white/50 hover:text-white transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      </motion.div>
+                        {child.label}
+                      </Link>
                     ))}
                   </div>
-                ) : (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.06 + i * 0.04, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-                    className="w-full text-center"
-                  >
-                    <Link
-                      href={link.href!}
-                      onClick={() => setIsMobileOpen(false)}
-                      className="block py-2.5 text-2xl font-medium text-white/75 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </motion.div>
-                )
-              )}
-            </nav>
+                </div>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="px-3 py-5 text-[13px] text-ink/80 hover:text-ink transition-colors"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
+          </nav>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.32, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-              className="mt-10 flex flex-col gap-3 w-full px-8 max-w-xs"
+          {/* Actions */}
+          <div className="ml-auto lg:ml-0 flex items-center gap-1 sm:gap-2">
+            <button
+              onClick={() => setSearchOpen((v) => !v)}
+              className="p-2 text-ink hover:opacity-70 transition-opacity"
+              aria-label="Search"
             >
-              {session ? (
-                <>
-                  <Link href="/dashboard" onClick={() => setIsMobileOpen(false)}>
-                    <button className="w-full py-3 rounded-full border border-white/[0.08] text-sm text-white/60 hover:text-white transition-colors">
-                      Dashboard
-                    </button>
+              <Search className="h-5 w-5" strokeWidth={1.5} />
+            </button>
+
+            <div className="relative group hidden sm:block">
+              <Link
+                href={session ? (session.user?.role === "ADMIN" ? "/admin" : "/dashboard") : "/login"}
+                className="block p-2 text-ink hover:opacity-70 transition-opacity"
+                aria-label="Account"
+              >
+                <User className="h-5 w-5" strokeWidth={1.5} />
+              </Link>
+              {session && (
+                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity absolute right-0 top-full w-48 bg-white border border-line shadow-lg py-2">
+                  <p className="px-4 pb-2 mb-1 border-b border-line text-xs text-muted-ink truncate">
+                    {session.user?.name ?? session.user?.email}
+                  </p>
+                  {session.user?.role === "ADMIN" && (
+                    <Link href="/admin" className="block px-4 py-2 text-[13px] text-ink/75 hover:bg-canvas">
+                      Admin Panel
+                    </Link>
+                  )}
+                  <Link href="/dashboard" className="block px-4 py-2 text-[13px] text-ink/75 hover:bg-canvas">
+                    My Account
+                  </Link>
+                  <Link href="/orders" className="block px-4 py-2 text-[13px] text-ink/75 hover:bg-canvas">
+                    Orders
                   </Link>
                   <form action={logout}>
-                    <button className="w-full py-3 rounded-full text-sm text-red-400/60 hover:text-red-400 transition-colors">
-                      Sign Out
+                    <button className="w-full text-left px-4 py-2 text-[13px] text-forge hover:bg-canvas">
+                      Sign out
                     </button>
                   </form>
-                </>
-              ) : (
-                <>
-                  <Link href="/login" onClick={() => setIsMobileOpen(false)}>
-                    <button className="w-full py-3 rounded-full border border-white/[0.08] text-sm text-white/60 hover:text-white transition-colors">
-                      Sign In
-                    </button>
-                  </Link>
-                  <Link href="/quote" onClick={() => setIsMobileOpen(false)}>
-                    <button className="w-full py-3 rounded-full bg-gradient-to-r from-blue-600 to-violet-600 text-sm font-semibold text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]">
-                      Get Quote
-                    </button>
-                  </Link>
-                </>
+                </div>
               )}
-            </motion.div>
-          </motion.div>
+            </div>
+
+            <button
+              onClick={openCart}
+              className="relative p-2 text-ink hover:opacity-70 transition-opacity"
+              aria-label="Open cart"
+            >
+              <ShoppingBag className="h-5 w-5" strokeWidth={1.5} />
+              {mounted && totalItems > 0 && (
+                <span className="absolute top-0.5 right-0.5 min-w-4 h-4 px-1 rounded-full bg-forge text-white text-[10px] font-semibold flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Search panel */}
+        {searchOpen && (
+          <div className="border-t border-line bg-white">
+            <form onSubmit={submitSearch} className="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center gap-3">
+              <Search className="h-5 w-5 text-muted-ink shrink-0" strokeWidth={1.5} />
+              <input
+                ref={searchRef}
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search vases, keychains, low poly figures…"
+                className="flex-1 bg-transparent text-sm text-ink placeholder:text-muted-ink outline-none py-2"
+              />
+              <button type="button" onClick={() => setSearchOpen(false)} className="p-1 text-muted-ink hover:text-ink" aria-label="Close search">
+                <X className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+            </form>
+          </div>
         )}
-      </AnimatePresence>
-    </div>
+      </header>
+
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setMobileOpen(false)} />
+          <div className="absolute left-0 top-0 bottom-0 w-[86%] max-w-sm bg-white flex flex-col">
+            <div className="flex items-center justify-between h-16 px-4 border-b border-line">
+              <span className="font-semibold tracking-[0.18em] text-sm text-ink">
+                KALINGA<span className="text-forge">·</span>FORGE
+              </span>
+              <button onClick={() => setMobileOpen(false)} className="p-1.5 text-ink" aria-label="Close menu">
+                <X className="h-5 w-5" strokeWidth={1.5} />
+              </button>
+            </div>
+
+            <form onSubmit={submitSearch} className="m-4 flex items-center gap-2 border border-line px-3">
+              <Search className="h-4 w-4 text-muted-ink" strokeWidth={1.5} />
+              <input
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search products"
+                className="flex-1 py-2.5 text-sm text-ink outline-none bg-transparent"
+              />
+            </form>
+
+            <nav className="flex-1 overflow-y-auto">
+              <p className="px-4 pt-2 pb-1 text-[11px] uppercase tracking-[0.15em] text-muted-ink">Shop by category</p>
+              {SHOP_CATEGORIES.map((cat) => (
+                <Link
+                  key={cat.slug}
+                  href={`/shop?category=${cat.slug}`}
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center justify-between px-4 py-3 text-sm text-ink border-b border-line/70"
+                >
+                  {cat.name}
+                  <ChevronRight className="h-4 w-4 text-muted-ink" strokeWidth={1.5} />
+                </Link>
+              ))}
+              <Link
+                href="/shop"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-ink border-b border-line/70"
+              >
+                Shop all
+                <ChevronRight className="h-4 w-4 text-muted-ink" strokeWidth={1.5} />
+              </Link>
+              <Link
+                href="/quote"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-forge border-b border-line/70"
+              >
+                Custom 3D printing
+                <ChevronRight className="h-4 w-4" strokeWidth={1.5} />
+              </Link>
+              <Link
+                href="/contact"
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-between px-4 py-3 text-sm text-ink border-b border-line/70"
+              >
+                Contact us
+                <ChevronRight className="h-4 w-4 text-muted-ink" strokeWidth={1.5} />
+              </Link>
+            </nav>
+
+            <div className="p-4 border-t border-line">
+              {session ? (
+                <form action={logout}>
+                  <button className="w-full py-3 border border-ink text-sm font-medium text-ink">Sign out</button>
+                </form>
+              ) : (
+                <Link
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full py-3 bg-ink text-white text-sm font-medium text-center"
+                >
+                  Sign in
+                </Link>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <CartDrawer />
+    </>
   );
 }

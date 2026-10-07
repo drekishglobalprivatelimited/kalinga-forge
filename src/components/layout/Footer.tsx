@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Layers, Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin } from "lucide-react";
+import { SHOP_CATEGORIES } from "@/constants/categories";
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -29,19 +30,23 @@ function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const LINKS = {
+  Shop: [
+    ...SHOP_CATEGORIES.slice(0, 6).map((c) => ({ href: `/shop?category=${c.slug}`, label: c.name })),
+    { href: "/shop", label: "Shop all" },
+  ],
   Services: [
     { href: "/quote", label: "Get a Quote" },
     { href: "/services", label: "All Services" },
     { href: "/materials", label: "Materials Guide" },
     { href: "/shop", label: "3D Print Shop" },
   ],
-  Company: [
+  "Know Us": [
     { href: "/about", label: "About Us" },
     { href: "/blog", label: "Blog" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact" },
   ],
-  Legal: [
+  "Help Desk": [
     { href: "/privacy", label: "Privacy Policy" },
     { href: "/terms", label: "Terms of Service" },
     { href: "/refund-policy", label: "Refund Policy" },
@@ -50,54 +55,42 @@ const LINKS = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/8 bg-zinc-950">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+    <footer className="bg-canvas text-ink border-t border-line">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 pt-14 pb-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-x-6 gap-y-10">
           {/* Brand */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 to-violet-600">
-                <Layers className="h-5 w-5 text-white" />
-              </div>
-              <span className="text-2xl font-bold">
-                <span className="text-white">Kalinga</span>{" "}
-                <span className="gradient-text">Forge</span>
-              </span>
+          <div className="col-span-2">
+            <Link href="/" className="inline-block font-semibold tracking-[0.18em] text-base mb-4">
+              KALINGA<span className="text-forge">·</span>FORGE
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed max-w-sm mb-6">
-              India&apos;s premium 3D printing service. From rapid prototypes to small-batch production, we bring your designs to life with precision and speed.
+            <p className="text-sm text-muted-ink leading-relaxed max-w-sm mb-6">
+              3D printed décor, collectibles and everyday objects — printed to order. Plus custom 3D printing for
+              prototypes, parts and small-batch production.
             </p>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2 text-sm text-white/50">
-                <Phone className="h-4 w-4 text-blue-400 shrink-0" />
-                <a href={`tel:${process.env.NEXT_PUBLIC_BUSINESS_PHONE}`} className="hover:text-white transition-colors">
-                  {process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "+91 98765 43210"}
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-white/50">
-                <Mail className="h-4 w-4 text-blue-400 shrink-0" />
-                <a href="mailto:hello@kalingaforge.in" className="hover:text-white transition-colors">
-                  hello@kalingaforge.in
-                </a>
-              </div>
-              <div className="flex items-start gap-2 text-sm text-white/50">
-                <MapPin className="h-4 w-4 text-blue-400 shrink-0 mt-0.5" />
-                <span>Bangalore, Karnataka, India</span>
-              </div>
+            <div className="space-y-2.5 text-sm text-muted-ink">
+              <a href={`tel:${process.env.NEXT_PUBLIC_BUSINESS_PHONE}`} className="flex items-center gap-2 hover:text-ink transition-colors">
+                <Phone className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                {process.env.NEXT_PUBLIC_BUSINESS_PHONE ?? "+91 98765 43210"}
+              </a>
+              <a href="mailto:hello@kalingaforge.in" className="flex items-center gap-2 hover:text-ink transition-colors">
+                <Mail className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                hello@kalingaforge.in
+              </a>
+              <p className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 shrink-0" strokeWidth={1.5} />
+                Bangalore, Karnataka, India
+              </p>
             </div>
           </div>
 
           {/* Links */}
           {Object.entries(LINKS).map(([category, links]) => (
             <div key={category}>
-              <h3 className="text-sm font-semibold text-white mb-4">{category}</h3>
-              <ul className="space-y-2">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[0.15em] mb-4">{category}</h3>
+              <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/50 hover:text-white transition-colors"
-                    >
+                    <Link href={link.href} className="text-[13px] text-muted-ink hover:text-ink transition-colors">
                       {link.label}
                     </Link>
                   </li>
@@ -107,19 +100,19 @@ export function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-white/40">
+        <div className="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-muted-ink text-center sm:text-left">
             © {new Date().getFullYear()} Kalinga Forge. All rights reserved. GST:{" "}
             {process.env.NEXT_PUBLIC_BUSINESS_GST ?? "29AABCU9603R1ZP"}
           </p>
-          <div className="flex items-center gap-3">
-            <a href="#" aria-label="Instagram" className="text-white/40 hover:text-white transition-colors">
+          <div className="flex items-center gap-4">
+            <a href="#" aria-label="Instagram" className="text-muted-ink hover:text-ink transition-colors">
               <InstagramIcon className="h-5 w-5" />
             </a>
-            <a href="#" aria-label="Twitter" className="text-white/40 hover:text-white transition-colors">
+            <a href="#" aria-label="Twitter" className="text-muted-ink hover:text-ink transition-colors">
               <TwitterIcon className="h-5 w-5" />
             </a>
-            <a href="#" aria-label="YouTube" className="text-white/40 hover:text-white transition-colors">
+            <a href="#" aria-label="YouTube" className="text-muted-ink hover:text-ink transition-colors">
               <YoutubeIcon className="h-5 w-5" />
             </a>
           </div>

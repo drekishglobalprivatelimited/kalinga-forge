@@ -65,8 +65,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
-  colorScheme: "dark",
+  themeColor: "#ffffff",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -79,13 +79,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark`}
+      className={`${geistSans.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
         <LocalBusinessSchema />
       </head>
-      <body className="min-h-screen bg-[#050505] text-white antialiased">
+      <body className="min-h-screen bg-white text-ink antialiased">
         <Providers>{children}</Providers>
       </body>
     </html>

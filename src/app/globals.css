@@ -2,8 +2,8 @@
 
 @layer base {
   :root {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 7%;
     --card: 0 0% 5%;
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 5%;
@@ -18,8 +18,8 @@
     --accent-foreground: 0 0% 98%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14%;
-    --input: 0 0% 14%;
+    --border: 30 10% 90%;
+    --input: 30 10% 90%;
     --ring: 217 91% 60%;
     --radius: 0.75rem;
     --brand: 217 91% 60%;
@@ -29,6 +29,11 @@
 }
 
 @theme inline {
+  --color-ink: #111111;
+  --color-canvas: #f6f3ee;
+  --color-line: #e8e4de;
+  --color-muted-ink: #6b6b6b;
+  --color-forge: #c2410c;
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --font-sans: var(--font-geist-sans);
@@ -143,4 +148,17 @@ body {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 300ms, transform 300ms;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Horizontal product rails */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }

@@ -1,8 +1,7 @@
 "use client";
 
 import { useCartStore } from "@/store/cartStore";
-import { Button } from "@/components/ui/button";
-import { ShoppingCart } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface Props {
   productId: string;
@@ -12,9 +11,11 @@ interface Props {
   image: string;
   sku: string;
   variantId?: string;
+  size?: "sm" | "lg";
+  className?: string;
 }
 
-export function AddToCartWrapper({ productId, name, slug, price, image, sku, variantId }: Props) {
+export function AddToCartWrapper({ productId, name, slug, price, image, sku, variantId, size = "sm", className }: Props) {
   const addItem = useCartStore((s) => s.addItem);
 
   function handleAdd(e: React.MouseEvent) {
@@ -23,14 +24,18 @@ export function AddToCartWrapper({ productId, name, slug, price, image, sku, var
   }
 
   return (
-    <Button
-      variant="outline"
-      size="icon"
-      className="h-8 w-8 rounded-lg shrink-0"
+    <button
       onClick={handleAdd}
-      aria-label={`Add ${name} to cart`}
+      aria-label={`Add ${name} to bag`}
+      className={cn(
+        "w-full font-medium tracking-wide transition-colors",
+        size === "sm"
+          ? "py-2.5 text-xs border border-ink text-ink hover:bg-ink hover:text-white"
+          : "py-4 text-sm bg-ink text-white hover:bg-black",
+        className
+      )}
     >
-      <ShoppingCart className="h-4 w-4" />
-    </Button>
+      ADD TO BAG
+    </button>
   );
 }
