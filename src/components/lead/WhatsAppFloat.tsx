@@ -6,7 +6,7 @@ import { MessageCircle } from "lucide-react";
 export function WhatsAppFloat() {
   const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "919876543210";
   const message = encodeURIComponent(
-    "Hi Poka Print Studio! I'd like to know more about your 3D printing services."
+    "Hi Kalinga Forge! I'd like to know more about your 3D printing services."
   );
 
   return (

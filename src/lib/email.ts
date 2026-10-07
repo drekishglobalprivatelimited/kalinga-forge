@@ -1,8 +1,8 @@
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const FROM = process.env.EMAIL_FROM ?? "noreply@pokaprintstudio.in";
-const BUSINESS_NAME = process.env.NEXT_PUBLIC_BUSINESS_NAME ?? "Poka Print Studio";
+const FROM = process.env.EMAIL_FROM ?? "noreply@kalingaforge.in";
+const BUSINESS_NAME = process.env.NEXT_PUBLIC_BUSINESS_NAME ?? "Kalinga Forge";
 
 export async function sendQuoteSubmittedEmail(data: {
   to: string;
@@ -50,7 +50,7 @@ export async function sendAdminNewQuoteAlert(data: {
   estimatedPrice: number;
   quoteId: string;
 }) {
-  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@pokaprintstudio.in";
+  const adminEmail = process.env.ADMIN_EMAIL ?? "admin@kalingaforge.in";
   return resend.emails.send({
     from: `${BUSINESS_NAME} <${FROM}>`,
     to: adminEmail,

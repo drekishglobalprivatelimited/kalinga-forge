@@ -37,7 +37,7 @@ function LoginForm() {
   return (
     <div className="glass rounded-3xl p-8 border border-white/10">
       <h1 className="text-2xl font-bold text-white mb-1">Welcome back</h1>
-      <p className="text-white/50 text-sm mb-8">Sign in to your Poka Print Studio account</p>
+      <p className="text-white/50 text-sm mb-8">Sign in to your Kalinga Forge account</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">

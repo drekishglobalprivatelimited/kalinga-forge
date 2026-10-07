@@ -41,7 +41,7 @@ export default function RegisterPage() {
   return (
     <div className="glass rounded-3xl p-8 border border-white/10">
       <h1 className="text-2xl font-bold text-white mb-1">Create your account</h1>
-      <p className="text-white/50 text-sm mb-8">Join Poka Print Studio to track your quotes and orders</p>
+      <p className="text-white/50 text-sm mb-8">Join Kalinga Forge to track your quotes and orders</p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">

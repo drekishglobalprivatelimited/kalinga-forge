@@ -14,7 +14,7 @@ const s3Client = new S3Client({
   },
 });
 
-const BUCKET = process.env.AWS_S3_BUCKET ?? "poka-print-studio-uploads";
+const BUCKET = process.env.AWS_S3_BUCKET ?? "kalinga-forge-uploads";
 
 export async function getPresignedUploadUrl(
   key: string,

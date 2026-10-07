@@ -58,8 +58,8 @@ export function Header() {
             <Layers className="h-3.5 w-3.5 text-white" strokeWidth={1.5} />
           </div>
           <span className="text-sm font-bold tracking-tight">
-            <span className="text-white">Poka Print</span>{" "}
-            <span className="gradient-text">Studio</span>
+            <span className="text-white">Kalinga</span>{" "}
+            <span className="gradient-text">Forge</span>
           </span>
         </Link>
 

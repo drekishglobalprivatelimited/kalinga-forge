@@ -52,7 +52,7 @@ async function main() {
       isActive: true,
       isFeatured: true,
       material: "PLA",
-      printTime: 4,
+      printTime: "4h",
       tags: ["wall art", "decor", "geometric", "modern"],
     },
     {
@@ -68,7 +68,7 @@ async function main() {
       isActive: true,
       isFeatured: true,
       material: "PETG",
-      printTime: 1,
+      printTime: "1h",
       tags: ["cable", "organizer", "desk", "functional"],
     },
     {
@@ -84,7 +84,7 @@ async function main() {
       isActive: true,
       isFeatured: true,
       material: "PLA+",
-      printTime: 6,
+      printTime: "6h",
       tags: ["fidget", "gear", "toy", "gift"],
     },
     {
@@ -100,7 +100,7 @@ async function main() {
       isActive: true,
       isFeatured: false,
       material: "PETG",
-      printTime: 2,
+      printTime: "2h",
       tags: ["fastener", "hardware", "M3", "engineering"],
     },
     {
@@ -116,7 +116,7 @@ async function main() {
       isActive: true,
       isFeatured: true,
       material: "PLA",
-      printTime: 8,
+      printTime: "8h",
       tags: ["desk", "organizer", "office", "modular"],
     },
     {
@@ -132,7 +132,7 @@ async function main() {
       isActive: true,
       isFeatured: false,
       material: "PLA+",
-      printTime: 3,
+      printTime: "3h",
       tags: ["phone", "stand", "desk", "functional"],
     },
     {
@@ -148,7 +148,7 @@ async function main() {
       isActive: true,
       isFeatured: true,
       material: "Resin",
-      printTime: 10,
+      printTime: "10h",
       tags: ["miniature", "architecture", "gift", "resin", "india"],
     },
     {
@@ -164,7 +164,7 @@ async function main() {
       isActive: true,
       isFeatured: false,
       material: "PETG",
-      printTime: 5,
+      printTime: "5h",
       tags: ["spool", "filament", "3d printing", "storage"],
     },
   ];
@@ -177,17 +177,17 @@ async function main() {
     });
   }
 
-  // Poka Print Studio catalogue — generated from products.xlsx by
+  // Kalinga Forge catalogue — generated from products.xlsx by
   // Catalogue/Poka Prints/export_to_website.py
-  await seedPokaCatalogue();
+  await seedCatalogue();
 
   // Admin user
   const adminHash = await bcrypt.hash("Admin@123", 12);
   await prisma.user.upsert({
-    where: { email: "admin@pokaprintstudio.in" },
+    where: { email: "admin@kalingaforge.in" },
     update: {},
     create: {
-      email: "admin@pokaprintstudio.in",
+      email: "admin@kalingaforge.in",
       name: "Admin",
       passwordHash: adminHash,
       role: "ADMIN",
@@ -195,7 +195,7 @@ async function main() {
   });
 
   console.log("Seeding complete.");
-  console.log("Admin login: admin@pokaprintstudio.in / Admin@123");
+  console.log("Admin login: admin@kalingaforge.in / Admin@123");
 }
 
 type CatalogueData = {
@@ -212,10 +212,11 @@ type CatalogueData = {
     material: string;
     tags: string[];
     image: string | null;
+    colors: string[];
   }[];
 };
 
-async function seedPokaCatalogue() {
+async function seedCatalogue() {
   const file = path.join(process.cwd(), "prisma", "data", "poka-products.json");
   const data: CatalogueData = JSON.parse(readFileSync(file, "utf-8"));
 
@@ -230,7 +231,7 @@ async function seedPokaCatalogue() {
     categoryIds.set(cat.name, row.id);
   }
 
-  for (const { category, image, ...product } of data.products) {
+  for (const { category, image, colors: _colors, ...product } of data.products) {
     const fields = { ...product, categoryId: categoryIds.get(category)!, isActive: true };
     const row = await prisma.product.upsert({
       where: { slug: product.slug },
@@ -245,7 +246,7 @@ async function seedPokaCatalogue() {
     }
   }
 
-  console.log(`Poka catalogue: ${data.products.length} products in ${data.categories.length} categories.`);
+  console.log(`Kalinga Forge catalogue: ${data.products.length} products in ${data.categories.length} categories.`);
 }
 
 main()

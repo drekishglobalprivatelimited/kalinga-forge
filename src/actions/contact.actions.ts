@@ -25,9 +25,9 @@ export async function submitContactForm(data: ContactInput) {
     });
 
     // Notify admin
-    const adminEmail = process.env.ADMIN_EMAIL ?? "admin@pokaprintstudio.in";
+    const adminEmail = process.env.ADMIN_EMAIL ?? "admin@kalingaforge.in";
     await resend.emails.send({
-      from: `Poka Print Studio <${process.env.EMAIL_FROM ?? "noreply@pokaprintstudio.in"}>`,
+      from: `Kalinga Forge <${process.env.EMAIL_FROM ?? "noreply@kalingaforge.in"}>`,
       to: adminEmail,
       subject: `[NEW LEAD] ${data.name} — ${data.source}`,
       html: `

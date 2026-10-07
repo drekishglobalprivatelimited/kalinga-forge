@@ -12,7 +12,7 @@ import { WhatsAppFloat } from "@/components/lead/WhatsAppFloat";
 import { FAQSchema } from "@/components/shared/StructuredData";
 
 export const metadata: Metadata = {
-  title: "Poka Print Studio — India's Premium 3D Printing Service | Custom Prototypes & Products",
+  title: "Kalinga Forge — India's Premium 3D Printing Service | Custom Prototypes & Products",
   description:
     "Get instant quotes for custom 3D printing in India. STL printing, engineering prototypes, rapid manufacturing. 9 materials, fast delivery, competitive pricing.",
   alternates: { canonical: "/" },

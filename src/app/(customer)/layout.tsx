@@ -25,8 +25,8 @@ export default async function CustomerLayout({ children }: { children: React.Rea
             <Layers className="h-4 w-4 text-white" />
           </div>
           <span className="font-bold text-lg">
-            <span className="text-white">Poka Print</span>{" "}
-            <span className="gradient-text">Studio</span>
+            <span className="text-white">Kalinga</span>{" "}
+            <span className="gradient-text">Forge</span>
           </span>
         </Link>
 
@@ -65,7 +65,7 @@ export default async function CustomerLayout({ children }: { children: React.Rea
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-violet-600">
               <Layers className="h-4 w-4 text-white" />
             </div>
-            <span className="font-bold">Poka Print <span className="gradient-text">Studio</span></span>
+            <span className="font-bold">Kalinga <span className="gradient-text">Forge</span></span>
           </Link>
           <span className="text-sm text-white/60">{session.user?.name}</span>
         </div>

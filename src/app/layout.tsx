@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://pokaprintstudio.in"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? "https://kalingaforge.in"),
   title: {
-    default: "Poka Print Studio — India's Premium 3D Printing Service",
-    template: "%s | Poka Print Studio",
+    default: "Kalinga Forge — India's Premium 3D Printing Service",
+    template: "%s | Kalinga Forge",
   },
   description:
     "Custom 3D printing services in India. STL printing, STEP files, engineering prototypes, rapid prototyping, and 3D printed products. Instant quote. Fast delivery.",
@@ -32,11 +32,11 @@ export const metadata: Metadata = {
     "online 3D printing",
     "3D printed gifts",
     "prototype manufacturing",
-    "Poka Print Studio",
+    "Kalinga Forge",
   ],
-  authors: [{ name: "Poka Print Studio" }],
-  creator: "Poka Print Studio",
-  publisher: "Poka Print Studio",
+  authors: [{ name: "Kalinga Forge" }],
+  creator: "Kalinga Forge",
+  publisher: "Kalinga Forge",
   robots: {
     index: true,
     follow: true,
@@ -45,16 +45,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: process.env.NEXT_PUBLIC_APP_URL ?? "https://pokaprintstudio.in",
-    siteName: "Poka Print Studio",
-    title: "Poka Print Studio — India's Premium 3D Printing Service",
+    url: process.env.NEXT_PUBLIC_APP_URL ?? "https://kalingaforge.in",
+    siteName: "Kalinga Forge",
+    title: "Kalinga Forge — India's Premium 3D Printing Service",
     description:
       "Custom 3D printing services. Engineering prototypes, rapid manufacturing, and 3D printed products. Instant quote system.",
-    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "Poka Print Studio" }],
+    images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: "Kalinga Forge" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Poka Print Studio — India's Premium 3D Printing Service",
+    title: "Kalinga Forge — India's Premium 3D Printing Service",
     description: "Custom 3D printing. Instant quote. Fast delivery across India.",
     images: ["/og-default.jpg"],
   },
